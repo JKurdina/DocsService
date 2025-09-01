@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Azure.Identity;
+﻿using Azure.Identity;
 using DocsService.Data;
 using DocsService.Interfaces;
 using DocsService.Models;
