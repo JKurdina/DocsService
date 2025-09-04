@@ -672,46 +672,77 @@
 
 
 
-/*Стили для формы с авторизированным пользователем*/
+/* Позиционирование профиля в правом верхнем углу */
 .auth-form {
     position: fixed;
-    right: 50px;
-    top: 290px;
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
 }
 
 .userInfoBtn {
-    background-color: #FFFFFF;
+    position: relative;
+    background: none;
     border: none;
-    border-radius: 14px;
     padding: 0;
     margin: 0;
     cursor: pointer;
+}
+
+/* Стили для компактного вида профиля */
+.user-compact-view {
     display: flex;
-    justify-content: flex-end;
-    overflow: hidden;
-    width: 40px;
-    height: 40px;
-    transition: width 0.5s ease, height 0.5s ease;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    background-color: #FFFFFF;
+    border-radius: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .user-compact-view:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transform: translateY(-1px);
+    }
+
+.user-name-compact {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
 }
 
 .img-userInfo-btn {
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    opacity: 1;
-    transition: transform 0.5s ease;
-    z-index: 2;
-    
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
 }
 
 .user-details-container {
-    width: 260px;
-    height: 100%;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 300px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     opacity: 0;
-    transition: opacity 0.3s ease 0.2s;
-    pointer-events: none;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    z-index: 1000;
+}
+
+/* Открытое состояние */
+.userInfoBtn.active .user-details-container {
+    opacity: 1;
+    visibility: visible;
+}
+
+.userInfoBtn.active .img-userInfo-btn {
+    transform: rotate(180deg);
 }
 
 .user-info-content {
@@ -719,28 +750,18 @@
     flex-direction: column;
     gap: 15px;
     padding: 20px;
-    height: 100%;
-    box-sizing: border-box;
 }
 
 .user-info-card {
-    background: #D9D9D9;
+    background: #f8f9fa;
     border-radius: 10px;
     padding: 16px;
     font-family: Arial, sans-serif;
     font-size: 13px;
     color: #333;
     line-height: 1.5;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    box-sizing: border-box;
+    border: 1px solid #e9ecef;
 }
-
-    .user-info-card p {
-        margin: 6px 0;
-        padding: 0;
-        font-weight: normal;
-    }
 
 .reminder-section {
     display: flex;
@@ -749,18 +770,18 @@
 }
 
 .reminder-card {
-    background: #D9D9D9;
+    background: #f8f9fa;
     border-radius: 10px;
     padding: 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
 }
 
 .reminder-setting {
     font-family: Arial;
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin-bottom: 12px;
 }
 
 .reminder-label {
@@ -799,31 +820,38 @@
     cursor: pointer;
     font-size: 13px;
     font-weight: 500;
-    align-self: flex-end;
     transition: background-color 0.2s ease;
     height: 32px;
-    margin: 15px 0 0;
+    margin-top: 10px;
+    width: 100%;
 }
 
     .save-btn:hover {
         background-color: #DB2B36;
     }
 
-/* Открытое состояние */
-.userInfoBtn.active {
-    width: 300px;
-    height: 650px;
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .auth-form {
+        top: 15px;
+        right: 15px;
+    }
+
+    .user-compact-view {
+        padding: 6px 12px;
+    }
+
+    .user-name-compact {
+        font-size: 12px;
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .user-details-container {
+        width: 280px;
+        right: -10px;
+    }
 }
-
-    .userInfoBtn.active .img-userInfo-btn {
-        transform: translateX(-250px); /* Учитываем смещение в 8px */
-    }
-
-    .userInfoBtn.active .user-details-container {
-        opacity: 1;
-        pointer-events: all;
-    }
-
-
 
 

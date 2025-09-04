@@ -1035,20 +1035,44 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // Логика работы формы с информацией об авторизованном пользователе
-const userInfoBtn = document.getElementById('userInfoBtn');
+//const userInfoBtn = document.getElementById('userInfoBtn');
 
 // Обработчик клика по иконке пользователя (открытие/закрытие)
-document.querySelector('.img-userInfo-btn').addEventListener('click', function () {
-    userInfoBtn.classList.toggle('active');
-});
+//document.querySelector('.img-userInfo-btn').addEventListener('click', function () {
+//    userInfoBtn.classList.toggle('active');
+//});
 
 // Предотвращаем закрытие формы при клике на внутренние элементы
-userInfoBtn.addEventListener('click', function (e) {
-    // Если клик не по иконке пользователя и не по самому контейнеру - останавливаем всплытие
-    if (e.target !== userInfoBtn && !e.target.classList.contains('img-userInfo-btn')) {
-        e.stopPropagation();
+//userInfoBtn.addEventListener('click', function (e) {
+//    // Если клик не по иконке пользователя и не по самому контейнеру - останавливаем всплытие
+//    if (e.target !== userInfoBtn && !e.target.classList.contains('img-userInfo-btn')) {
+//        e.stopPropagation();
+//    }
+//});
+
+// Обработчик для кнопки профиля
+document.getElementById('userInfoBtn').addEventListener('click', function (e) {
+    // Предотвращаем закрытие при клике внутри выпадающего контента
+    if (!e.target.closest('.user-details-container')) {
+        this.classList.toggle('active');
     }
 });
+
+// Закрытие при клике вне области
+document.addEventListener('click', function (e) {
+    const userInfoBtn = document.getElementById('userInfoBtn');
+    const isClickInside = e.target.closest('#userInfoBtn');
+
+    if (!isClickInside && userInfoBtn.classList.contains('active')) {
+        userInfoBtn.classList.remove('active');
+    }
+});
+
+// Предотвращаем закрытие при клике внутри выпадающего контента
+document.querySelector('.user-details-container').addEventListener('click', function (e) {
+    e.stopPropagation();
+});
+
 
 // Также отдельно обрабатываем поле ввода даты и кнопку сохранения
 document.getElementById('trainingReminder').addEventListener('click', function (e) {
